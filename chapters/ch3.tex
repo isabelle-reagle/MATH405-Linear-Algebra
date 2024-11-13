@@ -1,0 +1,258 @@
+\chapter{Linear Maps}
+\section{Definition and Examples}
+Now we are ready to move into what I would consider the heart and soul of linear algebra, linear maps.
+
+For this chapter, we will let $U$, $V$, and $W$ represent vector spaces over $\F$.
+\begin{definition}
+    A linear map from $V$ to $W$ is a function $T: V\to W$ with the following properties:
+    \begin{enumerate}
+        \item \textbf{Additivity:}  For every $u,v\in V$, $T(u + v) = T(u) +T(v)$.
+        \item \textbf{Homogeneity:} For every $v\in V$ and $\lambda \in \F$, $T(\lambda v) = \lambda T(v)$.
+    \end{enumerate}
+\end{definition}[Set of Linear Maps]
+Note that for linear maps we often use the notation $Tv$ instead of $T(v)$.
+\begin{definition}
+    \begin{enumerate}
+        \item The set of all linear maps from $V$ to $W$ is denoted $\mcl L(V,W)$.
+        \item The set of all linear maps from $V$ to $V$ is denoted $\mcl L(V)$. In other words $\mcl L(V) = \mcl L(V,V)$.
+    \end{enumerate}
+\end{definition}
+A few examples of linear maps follow.
+\begin{example}
+    \textbf{Zero Map:} The map $0 \in \mcl L(V,W)$ is defined with $0v = 0$. Note that the left zero here is a linear map and the right zero is the additive identity in $W$.
+
+    \textbf{Identity Operator:} The map $1\in\mcl L(V)$ is defined with $1v = v$. 
+
+    \textbf{Differentiation:} Define $D\in \mcl L(\mcl P(\R))$ with $Dp = \dd p/\dd t$. The assertion that $D$ is linear is the same as stating two well-known facts about differentiation; that $(f+g)' = f'+g'$ and that $(af)' = af'$.
+
+    \textbf{Linear Differential Equation:} Let $a_0, \dots, a_n \in \F$ be fixed. Define $L_n \in \mcl L(\R^\R)$ with 
+    \[ L_nf = a_n \dv[n]{f}{x} + \cdots + a_1\dv{f}{x} + a_0 f\]
+    This is the notion of a linear differential equation. Setting $Lf = 0$ describes a homogeneous linear $n$th order differential equation with constant coefficients, which you will learn to solve in any differential equations course. The underlying linear structure of this foundational concept illustrates the intimate connection between linear algebra and differential equations.
+
+    \textbf{Backward Shift:} Define a linear map $T\in \mcl L(\F^\infty)$ with
+    \[ T(x_1, x_2, x_3, \dots) = (x_2, x_3, \dots) \]
+
+    \textbf{Matrix Map:} Let $m,n\in \N$ be fixed. Define, for each $j = 1, \dots, m$ and $k = 1, \dots, n$, a coefficient $A_{j,k}\in \F$. We can then define the linear map $T\in \mcl L(\F^n, \F^m)$ with
+    \[ T(x_1, \dots, x_n) = \pqty{\sum_{i=1}^n A_{1,i}x_i, \sum_{i=1}^n A_{2,i}x_i, \dots, \sum_{i=1}^n A_{m,i}x_i}\]
+    You may recognize this as the linear map represented by the matrix
+    \[ A = \pmat{A_{1,1} & A_{1,2} & \cdots & A_{1,n} \\
+                 A_{2,1} & A_{2,2} & \cdots & A_{2,n} \\
+                 \vdots & \vdots & \ddots & \vdots \\
+                 A_{m,1} & A_{m,2} & \cdots & A_{m,n}}\]
+    with $Tv = Av$. As we will explore soon, every linear map from $\F^n$ to $\F^m$ is of this form.
+\end{example}
+The next result is a key result in the study of linear maps; it states that the behavior of a linear map is uniquely and entirely determined by how it acts on a basis of its input space. 
+\begin{theorem}[Linear Map Lemma]
+    Assume $V$ is finite-dimensional. Suppose $v_1, \dots, v_n$ is a basis for $V$ and $w_1, \dots, w_n \in W$. Then there exists a unique linear map $T\in \mcl L(V,W)$ such that
+    \[ Tv_k = w_k\]
+    for $k= 1, \dots, n$.
+\end{theorem}
+\begin{proof}
+    First we show the existence of a linear map with the desired property. Define $T: V\to W$ with
+    \[ T(c_1v_1 + \cdots + c_nv_n) = c_1w_1 + \cdots + c_nw_n \]
+    where $c_1, \dots, c_n$ are arbitrary elements of $\F$. Since $v_1, \dots, v_n$ is a basis of $V$, $T$ does indeed define a function from $V$ to $W$. To show linearity, let $u,v \in V$. We can write $u = a_1v_1 + \cdots + a_nv_n$ and $v = b_1v_1 + \cdots + b_nv_n$. Then, we know
+    \begin{align*}
+        T(u+v) &= T((a_1+b_1)v_1 + \cdots + (a_n+b_n)v_n) \\
+        &= (a_1+b_1)w_1 + \cdots + (a_n+b_n)w_n \\
+        &= (a_1v_1 + \cdots + a_nv_n) + (b_1v_1 + \cdots + b_nv_n) \\
+        &= Tu + Tv
+    \end{align*}
+    Now, let $\lambda \in \F$. We have
+    \begin{align*}
+        T(\lambda v) &= T((\lambda a_1)v_1 + \cdots + (\lambda a_n)v_n) \\
+        &= (\lambda a_1)w_1 + \cdots + (\lambda a_n)w_n \\
+        &= \lambda(a_1w_1 + \cdots + a_nw_n). \\
+        &= \lambda (Tv)
+    \end{align*}
+    Now we must show uniqueness. Suppose that $T\in \mcl L(V,W)$ satisfies $Tv_k = w_k$ for each $k = 1, \dots, n$. Then, additivity implies
+    \[ T(c_1v_1 + \cdots + c_nv_n) = c_1w_1 + \cdots + c_nw_n\]
+    Thus $T$ is uniquely determined on $\spn(v_1, \dots, v_n)$. Since $v_1, \dots, v_n$ is a basis of $V$, then $T$ is uniquely determined on $V$.
+\end{proof}
+\subsection*{Algebraic Operations on Linear Maps}
+We begin by defining addition and scalar multiplication on linear maps.
+\begin{definition}[Addition, Scalar Multiplication on $\lmap$]
+    Suppose $S,T\in \lmap(V,W)$ and $\lambda\in\F$. Then the sum $S+T$ and the product $\lambda T$ are the linear maps defined by the relations
+    \[ (S+T)(v) = Sv+  Tv \quad\text{and}\quad (\lambda T)(v) = \lambda (Tv)\]
+    for all $v\in V$.
+\end{definition}
+It is easy to verify that $S+T$ and $\lambda T$ are both linear.   
+\begin{theorem}[$\lmap$ is a Vector Space]
+    With the operations of addition and scalar multiplication defined above, $\lmap(V,W)$ is a vector space.
+\end{theorem}
+\begin{proof}
+    We must show each of the properties of a vector space. Let $R,S,T\in\lmap(V,W)$ and $a,b\in \F$. Then,
+    \begin{enumerate}
+        \item \textbf{Commutativity:} $(R+S)(v) =Rv + Sv = Sv + Rv = (S+R)(v)$ for all $v\in V$, so $R+S = S+R$.
+        \item \textbf{Associativity:} $((R+S)+T)(v) = (R+S)(v) + Tv = Rv + Sv + Tv = Rv + (S+T)v = (R+(S+T))(v)$ for all $v\in V$. So $(R+S)+T = R+(S+T)$.
+        \item \textbf{Additive Identity:} Define $0\in\lmap(V,W)$ as before. Then, $(R+0)v = Rv+0v = Rv+0 = Rv$ for all $v\in V$. So $R+0=R$.
+        \item \textbf{Additive Inverse:} Define $R' \in \lmap(V,W)$ with $R'v = -(Rv)$ for all $v\in V$. Then, $(R+R')v = Rv + R'v = Rv - (Rv) = 0 = 0v$ for all $v\in V$. So $R + R' = 0$. 
+        \item \textbf{Multiplicative Identity:} $(1R)(v) = 1(Rv) = Rv$ for all $v\in V$. So $1R = R$.
+        \item \textbf{Distributive Property 1:} $(a(R+S))(v) = a((R+S)(v)) = a(Rv+Sv) = aRv + aSv = (aR+aS)(v)$ for all $v\in V$ So $a(R+s) = aR+aS$.
+        \item \textbf{Distributive Property 2:} $((a+b)R)(v) = (a+b)(Rv) = aRv = bRv = (aR+bR)v$ for all $v\in V$. So $(a+b)R = aR+bR$.
+    \end{enumerate}
+\end{proof}
+Normally it makes no sense to multiply elements of a vector space, but for some pairs of linear maps, a product exists.
+\begin{definition}[Product of Linear Maps]
+    If $T\in \lmap(U,V)$ and $S\in \lmap (V,W)$, then the \textbf{product} $ST\in \lmap(U, W)$ is the map defined with
+    \[ (ST)(u) = S(Tu) \]
+    for all $u\in U$.
+\end{definition}
+Thus the product $ST$ is just the usual composition of two functions. Note that $ST$ is defined only when $T$ maps into the domain of $S$.
+\begin{theorem}
+    We assumed this theorem in our previous definition, but we should really prove it. 
+    
+    For $T\in \lmap(U,V)$ and $S\in\lmap(V,W)$, the product $ST$ is a linear map from $U$ to $W$.
+\end{theorem}
+\begin{proof}
+    Let $T\in\lmap(U,V)$ and $S\in\lmap(V,W)$. Since the composition $S\circ T$ is well-defined, we know that $ST : U \to W$. But we must show that this is linear.
+
+    \begin{enumerate}
+        \item \textbf{Additivity:} Let $u, v\in U$. Then, $(ST)(u+v) = S(T(u+v)) = S(Tu+Tv) = S(Tu) + S(Tv) = (ST)u + (ST)v$.
+        \item \textbf{Homogeneity:} Let $u\in U$ and $\lambda\in\F$. Then, $(ST)(\lambda u) = S(T(\lambda u)) = S(\lambda Tu) = \lambda S(Tu) = \lambda (ST)(u)$.
+    \end{enumerate}
+\end{proof}
+We will denote the identity map from $V$ to $V$ with $I_V$ (or similar for other vector spaces)
+\begin{theorem}[Algebraic Properties of Products of Linear Maps]
+    \begin{enumerate}
+        \item \textbf{Associativity:} $(T_1T_2)T_3 = T_1(T_2T_3)$ whenever $T_1, T_2$ and $T_3$ are linear maps such that the products make sense. 
+        \item \textbf{Identity:} Let $T\in \lmap(V,W)$. Then, $TI_V = I_WT = T$.
+        \item \textbf{Distributivity:} Let $T,T_1, T_2\in \lmap(U,V)$ and $S,S_1,S_2\in\lmap(V,W)$. Then, $(S_1+S_2)T = S_1T + S_2T$ and $S(T_1+T_2) = ST_1 + ST_2$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    The proof of this theorem is simple and is left as an exercise.
+\end{proof}
+Critically, it is \textbf{not} the case that multiplication by linear maps is commutative. In fact, most of the time swapping the order means that the multiplication is not even well-defined.
+\begin{theorem}[Linear Maps Take 0 to 0]
+    Let $T\in\lmap(V,W)$. Then, $T0=0$.
+\end{theorem}
+\begin{proof}
+    Let $v\in V$. Then, $T(0v) = 0Tv = 0$.
+\end{proof}
+\section{Null Spaces and Ranges}
+\subsection*{Null Spaces, Injectivity}
+In this section we learn about two spaces that are intimately connected by a linear map. Begin with the null space.
+\begin{definition}[Null Space]
+    Let $T\in\lmap(V,W)$. Define the \textbf{null space} of $T$, denoted $\nul T$, as the set of all $v\in V$ with $Tv = 0$. That is,
+    \[ \nul T = \{v\in V : Tv = 0\} \]
+\end{definition}
+Sometimes, the null space is called the \textbf{kernel} of $T$.
+\begin{theorem}[Null Space is a Vector Space]
+    Suppose $T\in\lmap(V,W)$. Then, $\nul T$ is a subspace of $V$.
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item \textbf{Zero Vector:} $0\in \nul T$ since $T0 = 0$.
+        \item \textbf{Closure under Addition:} Let $v,w\in \nul T$. Then, $T(v+w) = Tv+Tw = 0+0 = 0$, so $v+w\in \nul T$.
+        \item \textbf{Closure under Scalar Multiplication:} Let $v\in \nul T$ and let $\lambda\in\F$. Then, $T(\lambda v) = \lambda(Tv) = \lambda(0) = 0$. So $\lambda v \in \nul T$.
+    \end{enumerate} 
+\end{proof}
+\begin{definition}[Injective]
+    A function $T: V\to W$ is called \textbf{injective} if $Tu=Tv$ implies $u=v$.
+\end{definition}
+\begin{theorem}[Injectivity and Null Space]
+    Suppose $T\in\lmap(V,W)$. Then $T$ is injective if and only if $\nul T = \{0\}$.
+\end{theorem}
+\begin{proof}
+    $(\implies)$ Suppose $T$ is injective. Let $v\in \nul T$. So $Tv = 0$. We must have $0\in \nul T$, so $T0=0$. But injectivity then implies $v=0$. 
+
+    $(\impliedby)$ Conversely, suppose $\nul T = \{0\}$. Let $v,w\in V$ and assume $Tv=Tw$. Then, $Tv - Tw = 0$, so $T(v-w) = 0$. Thus $v-w\in \nul T$. But $\nul T = \{0\}$, so $v-w = 0$. So $v=w$. So $T$ is injective.
+\end{proof}
+\subsection*{Range, Surjectivity}
+Now we discuss another space related to $T$.
+\begin{definition}[Range]
+    For $T\in \lmap(V,W)$, the \textbf{range} of $T$ is the subset of $W$ containing every vector that is equal to $Tv$ for some $v\in V$:
+    \[ \range T = \{ Tv: v\in V\}\]
+\end{definition}
+\begin{theorem}[Range is a Subspace]
+    If $T\in\lmap(V,W)$, then $\range T$ is a subspace of $W$.
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item \textbf{Zero Vector:} $0\in \range T$ since $T0 = 0$. 
+        \item \textbf{Closure under Addition:} Let $w_1, w_2 \in \range T$. Then, pick $v_1,v_2\in V$ with $Tv_1 = w_1$ and $Tv_2=w_2$. We then have $T(v_1+v_2) = w_1+w_2$, so $w_1+w_2 \in \range T$.
+        \item \textbf{Closure under Scalar Multiplication:} Let $w\in \range T$ and $\lambda\in\F$. Pick $v\in V$ with $Tv = w$. Then, $T(\lambda v) = \lambda Tv = \lambda w$. So $\lambda w\in \range T$. 
+    \end{enumerate}
+\end{proof}
+\begin{definition}[Surjective]
+    A function $T: V\to W$ is \textbf{surjective} if $\range T = W$.
+\end{definition}
+\subsection*{Fundamental Theorem of Linear Maps}
+This next theorem is so important it gets a fancy name.
+\begin{theorem}[The Fundamental Theorem of Linear Maps]
+    Suppose $V$ is finite-dimensional and $T\in \lmap(V,W)$. Then $\range T$ is finite-dimensional and 
+    \[ \dim V = \dim\nul T + \dim\range T\]
+\end{theorem}
+\begin{proof}
+    Let $u_1, \dots, u_n$ be a basis of $\nul T$. Thus $\dim \nul T = n$. Since $u_1, \dots, u_n$ is a linearly independent list in $V$, we can extend it to a basis $u_1, \dots, u_n, v_1, \dots, v_m$ of $V$. Thus $\dim V = n + m$. Thus if we can show $\dim \range T = m$, we're done.
+
+    We hypothesize that $Tv_1, \dots, Tv_m$ is a basis of $\range T$. To show independence, let $a_1, \dots, a_m \in \F$ satisfy 
+    \[ a_1 Tv_1 + \cdots + a_m Tv_m = 0\]
+    By the linearity of $T$, we have 
+    \[ T(a_1v_1 + \cdots + a_mv_m) = 0\]
+    Thus we have $c_1v_1 + \cdots + c_mv_m\in \nul T$. Since $u_1, \dots, u_n$ is a basis of $\nul T$, we can pick $b_1, \dots, b_n\in \F$ with
+    \[ a_1v_1 + \cdots + a_mv_m = b_1u_1 + \cdots + b_nu_n\]
+    But since $u_1, \dots, u_n, v_1, \dots, v_m$ is linearly independent, this is only satisfied when $a_1 = \cdots = a_m = b_1 = \cdots = b_n = 0$. Thus we have shown linear independence.
+
+    To show spanning, let $w\in \range T$. Thus, we can pick $v\in V$ with $Tv = w$. But since $u_1, \dots, u_n, v_1, \dots, v_m$ is a basis of $V$, we can pick coefficients $c_1, \dots, c_n, d_1, \dots, d_m$ with
+    \[ v = c_1u_1 + \cdots + c_nu_n + d_1v_1 + \cdots + d_mv_m \]
+    Therefore, 
+    \begin{align*}
+        Tv = w &= T(c_1u_1 + \cdots + c_nu_n + d_1v_1 + \cdots + d_mv_m) \\
+        &= c_1Tu_1 + \cdots + c_nTu_n + d_1Tv_1 + \cdots + d_mTv_m
+    \end{align*}
+    But since $u_1, \dots, u_n \in \nul T$, they all go to zero when $T$ is applied, so
+    \[ w = d_1Tv_1 + \cdots + d_mTv_m\] 
+    Thus $Tv_1, \dots, Tv_m$ is a basis of $\range T$, and so
+    \[ \dim V = \dim \nul T + \dim \range T\]
+    as desired.
+\end{proof}
+\begin{theorem}[Map to Smaller Space is not Injective]
+    Suppose $V$ and $W$ are finite dimensional and $\dim V > \dim W$. Then, no linear map from $V$ to $W$ is injective.
+\end{theorem}
+\begin{proof}
+    Let $T \in \lmap(V,W)$. Then,
+    \begin{align*}
+        \dim \nul T &= \dim V - \dim \range T \\
+        &\ge  \dim V -\dim W \\
+        &> 0
+    \end{align*}
+    So $T$ is not injective.
+\end{proof}
+\begin{theorem}[Map to Bigger Space is not Surjective]
+    Suppose $V$ and $W$ are finite dimensional and $\dim V < \dim W$. Then, no linear map from $V$ to $W$ is surjective.
+\end{theorem}
+\begin{proof}
+    Let $T\in \lmap(V,W)$. Then,
+    \begin{align*}
+        \dim \range T &= \dim V - \dim \nul T \\
+        &< \dim W
+    \end{align*}
+    So $T$ is not surjective.
+\end{proof}
+We will now apply these results to the theory of linear equations. 
+
+Consider the homogeneous system of linear equations
+\begin{align*}
+    \sum_{k=1}^n A_{1,k}x_k &= 0 \\
+    &\vdots \\
+    \sum_{k=1}^n A_{m,n}x_k &= 0
+\end{align*}
+Clearly $x_1 = \cdots = x_n = 0$ solves this equation, but we wish to check to see if other solutions exist. 
+
+Define $T: \F^n \to \F^m$ with
+\[ T(x_1, \dots, x_n) = \pqty{\sum_{k=1}^n A_{1,k}x_k, \dots, \sum_{k=1}^n A_{m,n}x_k }\]
+So solving the above system of equations is equivalent to finding some vector in $\nul T$. So, for nonzero solutions to exist, we require that $\nul T$ is strictly bigger than $\{0\}$.
+\begin{theorem}[Homogeneous System of Linear Equations]
+    A homogeneous system of linear equations with more variables than equations has nonzero solutions.
+\end{theorem}
+\begin{proof}
+    Use the notation from above, so $T \in \lmap(\F^n, \F^m)$ with $n>m$. Then we know that $T$ cannot be injective since $\F^n$ is ``bigger" than $\F^m$. So $\nul T$ has nonzero entries. 
+\end{proof}
+Now we consider the same scenario except instead of $Tv = 0$, we have $Tv = c$, where $c\in \F^m$. This is a non-homogeneous system of linear equations, and we wish to ask the question: is there any choice of $c$ for which $Tv = c$ has no solutions? In other words, when is $T$ not surjective?
+\begin{theorem}[Nonhomogeneous System of Linear Equations]
+    A nonhomogeneous system of linear equations with more equations than variables has no solutions for some choice of the constant terms.
+\end{theorem}
+\begin{proof}
+    With the same notation, $T\in\lmap(\F^n, \F^m)$ with $n<m$. Then we know that $T$ cannot be injective since $\F^n$ is ``smaller" than $\F^m$. So $\range T \ne \F^m$ and we can pick some $c\in \F^m$ with $c\notin \range T$. Then, $Tv = c$ has no solutions.
+\end{proof}

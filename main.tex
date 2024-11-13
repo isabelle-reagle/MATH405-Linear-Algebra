@@ -1,0 +1,23 @@
+\documentclass[10pt,a4paper,oneside]{book}
+
+% course info (for title)
+\newcommand{\courseid}{PHYS 401}
+\newcommand{\coursetitle}{Quantum 1}
+\newcommand{\semester}{Fall 2024}
+\newcommand{\credit}{Adapted from 
+    Axler's book.}  
+
+\input{preamble.tex}
+\graphicspath{{figures/}}
+
+\usepackage{subfiles}
+
+\begin{document}
+\tableofcontents
+\blfootnote{* \credit}
+\graphicspath{{figures/}}
+
+\input{chapters/ch1.tex} % vector spaces
+\input{chapters/ch2.tex} % finite dimensional vector spaces
+\input{chapters/ch3.tex} % linear maps
+\end{document}

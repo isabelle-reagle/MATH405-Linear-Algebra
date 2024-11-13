@@ -1,0 +1,379 @@
+\chapter{Vector Spaces}
+\section{$\R^n$ and $\C^n$}
+\subsection*{Complex Numbers}
+You should be familiar with the basic properties of $\C$, but we will define it here anyway.
+\begin{definition}[Complex Number, $\C$]
+    A \textbf{complex number} is an ordered pair $(a,b)$ where $a,b\in \R$. This may be equivalently written as $a+bi$. The set of all complex numbers is denoted $\C$, so
+    \[ \C = \{a + bi: a,b\in\R\} \]
+    Let $a,b,c,d\in\R$. Addition and multiplication on $\C$ are defined as
+    \[ (a+bi)+(c+di) = (a+c) + (b+d)i \]
+    \[ (a+bi)\cdot (c+di) = (ab - bd) + (ad + bc)i\]
+\end{definition}
+The real number $a$ is equivalent to the complex number $a+0i$, so we typically think of $\R$ as a subset of $\C$:
+\[ \R = \{a+bi \in \C : b = 0\} \]
+\begin{theorem}[Properties of Complex Arithmetic]
+    Let $\alpha, \beta,\gamma \in \C$. Then,
+    \begin{enumerate}
+        \item \textbf{Commutativity:} $\alpha + \beta = \beta + \alpha$.
+        \item \textbf{Associativity:} $(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$.
+        \item \textbf{Additive Inverse:} There exists $\alpha'\in \C$ with $\alpha + \alpha' = 0$.
+        \item \textbf{Multiplicative Inverse:} As long as $\alpha\ne 0$, there exists $\alpha'\in \C$ with $\alpha\alpha' = 1 + 0i$.
+        \item \textbf{Distributive Property:} $\alpha(\beta + \gamma) = \alpha\beta + \alpha\gamma$.    
+    \end{enumerate}
+\end{theorem}
+These proofs are easy to verify given the definitions of addition and multiplication on $\C$ and the properties of real arithmetic (which we assume are given).
+\begin{definition}[Subtraction, Division]
+    Let $\alpha,\beta\in\C$. Then,
+    \begin{enumerate}
+        \item Let $-\alpha$ denote the additive inverse of $\alpha$; that is, $-\alpha$ is the unique complex number such that
+        \[ \alpha + (-\alpha) = 0\]
+        \item Subtraction on $\C$ is defined by
+        \[ \alpha - \beta = \alpha + (-\beta) \]
+        \item Assume $\alpha\ne 0$. Then, let $\alpha^{-1}$ denote the multiplicative inverse of $\alpha$.; that is, $\alpha^{-1}$ is the unique complex number such that
+        \[ \alpha\alpha^{-1} = 1\]
+        \item For $\beta\ne 0$, division on $\C$ is defined by
+        \[ \alpha/\beta = \alpha\beta^{-1}\]
+    \end{enumerate}
+\end{definition}
+Many of the results in this book apply to both $\R$ and $\C$, so we will introduce a piece of notation. 
+
+Throughout these notes, $\F$ stands for either $\R$ or $\C$.
+
+Elements of $\F$ are referred to as \textbf{scalars}, as opposed to vectors, which we will define shortly.
+
+\begin{example}[$\R^2$, $\R^3$]
+    \begin{enumerate}
+        \item The set $\R^2$ is the set of all ordered pairs of real numbers:
+        \[ \R^2 = \{(a,b) : a,b\in \R\}\]
+        $\R^2$ can be thought of representing a plane.
+        \item The set $\R^3$ is the set of all ordered triples of real numbers:
+        \[ \R^3 = \{(a,b,c) : a,b,c\in\R\} \]
+        $\R^3$ can be thought of as representing space.
+    \end{enumerate}
+\end{example}
+To generalize this, consider the notion of a list.
+\begin{definition}[List, Length]
+    \begin{enumerate}
+        \item Let $n\in\N$. A list of length $n$ is an ordered collection of $n$ elements.
+        \item Two lists are equal iff they have the same length and the same elements in the same order. 
+    \end{enumerate}
+\end{definition}
+We often write a list as elements separated by commas and surrounded by parenthesis, like $(z_1, \dots, z_n)$. Note that an infinite sequence $(z_1, z_2, \dots)$ is \textbf{not} a list, since by definition a list has a finite length.
+
+The list with length $0$ is a perfectly valid object, denoted $()$.
+\subsection*{The Set $\F^n$}
+$\F^n$ is defined as one would expect.
+\begin{definition}[$\F^n$]
+    Let $n\in\N$. Then, $\F^n$ is the set of all lists of length $n$ with elements in $\F$:
+    \[ \F^n = \{ (x_1, \dots, x_n) : x_k\in \F \text{ for each } k = 1, \dots, n\}  \]
+    For $(x_1, \dots, x_n)\in\F^n$, we call $x_k$ the k$^\text{th}$ coordinate of $(x_1, \dots, x_n)$.
+\end{definition}
+\begin{definition}[Addition in $\F^n$]
+    Let $(x_1, \dots, x_n)\in \F$ and $(y_1, \dots, y_n)\in \F$. We define the sum of these two as
+    \[ (x_1, \dots, x_n) + (y_1, \dots, y_n) = (x_1 + y_1, \dots, x_n + y_n) \]
+\end{definition}
+\newpage
+\begin{theorem}[Commutativity of Addition in $\F^n$]
+    Let $x,y\in \F^n$. Then, $x+y=y+x$.
+\end{theorem}
+\begin{proof}
+    Suppose $x = (x_1, \dots, x_n)\in \F^n$ and $y = (y_1, \dots, y_n) \in \F^n$. Then,
+    \begin{align*}
+        x+y &= (x_1 + y_1, \dots x_n + y_n) \\
+        &= (y_1 + x_1, \dots, y_n + x_n) = y+x
+    \end{align*}
+    The $x_k + y_k = y_k + x_k$ equality comes from the commutativity of addition in $\F$, which we take to be given.
+\end{proof}
+We define the list with all coordinates being $0$ as 
+\[ 0 = (0, \dots, 0)\]
+Note that the symbol $0$ is used in two different ways; we must decide which one is the real one based on context.
+\begin{definition}[Additive Inverse in $\F^n$]
+    Let $x\in \F^n$. The additive inverse of $x$, denoted $-x\in \F^n$, is the vector $-x\in\F^n$ defined by $x + (-x) = 0$. 
+
+    If $x = (x_1, \dots, x_n)$, then $-x = (-x_1, \dots, -x_n)$.
+\end{definition}
+\begin{definition}[Scalar Multiplication in $\F^n$]
+    Let $\lambda\in \F$ and $(x_1, \dots, x_n)\in \F^n$. The product of these two is given by 
+    \[ \lambda(x_1, \dots, x_n) = (\lambda x_1, \dots, \lambda x_n)\]
+\end{definition}
+\section{Definition of a Vector Space}
+The motivation for the definition of a vector space comes from the properties of addition and multiplication in $\F^n$.
+\begin{definition}[Addition, Scalar Multiplication]
+    Let $V$ be a set.
+    \begin{enumerate}
+        \item An \textbf{addition} on a set $V$ is a function $+: V\to V$ that maps each ordered pair $(u,v)\in V\times V$ to a vector $u+v\in V$.
+        \item A \textbf{scalar multiplication} on a set $V$ is a function that assigns each ordered pair $(\lambda, v)\in V\times V$ to a vector $\lambda v \in V$.
+    \end{enumerate}
+\end{definition}
+Now we are ready to give a formal definition of a vector space.
+\newpage
+\begin{definition}[Vector Space]
+    A \textbf{vector space} is a set $V$ along with an addition and a scalar multiplication on $V$ such that the following properties hold for each $u,v,w\in V$ and $a,b\in \F$: 
+    \begin{enumerate}
+        \item \textbf{Commutativity:} $u+v=v+u$
+        \item \textbf{Associativity:} $(u+v)+w = u+(v+w)$
+        \item \textbf{Additive Identity:} There exists $0\in V$ such that $u+0 = u$.
+        \item \textbf{Additive Inverse:} There exists $v'\in V$ such that $v + v' = 0$.
+        \item \textbf{Multiplicative Identity:} $1v = v$.
+        \item \textbf{Distributive Properties:} $a(u+v) = au+av$ and $(a+b)v = av + bv$.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Vector]
+    A vector is an element of a vector space.
+\end{definition}
+The scalar multiplication on a vector space depends on $\F$. Thus when we need to be precise, we say that $V$ is a vector space \textbf{over} $\F$.
+\begin{definition}[Real Vector Space, Complex Vector Space]
+    \begin{enumerate}
+        \item A vector space over $\R$ is a real vector space.
+        \item A vector space over $\C$ is a complex vector space.
+    \end{enumerate}
+\end{definition}
+\begin{example}[$\F^\infty$]
+    We define $\F^\infty$ as the set of all sequences of elements of $\F$:
+    \[ \F^\infty = \{ (x_1, x_2, \dots): x_1, x_2, \dots \in \F \} \]
+    Addition and scalar multiplication are defined as expected in $\F^\infty$. If $\lambda\in \F$, $(x_1, x_2, \dots)\in \F$, and $(y_1, y_2, \dots)\in \F$, we have
+    \[ (x_1, x_2, \dots) + (y_1, y_2, \dots) = (x_1 + y_1, x_2 + y_2, \dots) \]
+    \[ \lambda(x_1, x_2, \dots) = (\lambda x_1, \lambda x_2, \dots) \]
+    With these definitions, it is easy to show that $\F^\infty$ is a vector space over $\F$.
+\end{example}
+\begin{definition}[$\F^S$]
+    Let $S$ be a set.
+    \begin{enumerate}
+        \item $\F^S$ is defined to be the set of functions from $S$ to $\F$.
+        \item For $f,g\in \F^S$, the sum $f+g\in \F^S$ is the function defined by
+        \[ (f+g)(x) = f(x) + g(x)\]
+        for all $x\in S$.
+        \item For $\lambda\in \F$ and $f\in \F^S$, the product $\lambda f\in \F^S$ is the function defined by
+        \[ (\lambda f)(x) = \lambda f(x) \]
+        for all $x\in S$.
+    \end{enumerate}
+\end{definition}
+With this notation, we may equivalently write $\F^\infty = \F^\N$. 
+\begin{theorem}
+    For any nonempty set $S$, $\F^S$ is a vector space over $\F$.
+\end{theorem}
+\begin{proof}
+    We must show each property of a vector space.
+    \begin{enumerate}
+        \item Let $f, g\in \F^S$. Let $x\in S$. Then, 
+        \[ (f+g)(x) = f(x) + g(x) = g(x) + f(x) = (g+f)(x)\] 
+        So $f+g = g+f$.
+        \item Let $f,g,h\in \F^S$. Let $x\in S$. Then, 
+        \begin{align*}
+            ((f+g)+h)(x) &= (f+g)(x) + h(x) = f(x) + g(x) + h(x) \\
+            &= f(x) + (g+h)(x) = (f+(g+h))(x)
+        \end{align*}
+        So $(f+g)+h = f+(g+h)$.
+        \item Define $0\in \F^S$ with $0(x) = 0$. Then, let $f\in \F^S$ and let $x\in S$. Then,
+        \[ (f+0)(x) = f(x) + 0(x) = f(x) + 0 = f(x)\]
+        So $f+0 = f$,
+        \item Let $f\in \F^S$. Let $x\in S$. Define $-f\in \F^S$ with $(-f)(x) = -f(x)$. Then,
+        \[ (f + (-f))(x) = f(x) + (-f)(x) = f(x) - f(x) = 0\]
+        So $f + (-f) = 0$.
+        \item Let $f\in \F^S$. Let $x\in S$. Then, 
+        \[ (1f)(x) = 1f(x) = f(x)\]
+        So $1f = f$,
+        \item Let $f,g\in \F^S$ and let $\lambda \in \F$. Let $x\in S$. Then,
+        \[ (\lambda(f + g))(x) = \lambda(f+g)(x) = \lambda [f(x) + g(x)] = \lambda f(x) + \lambda g(x) \]
+        So $\lambda(f+g) = \lambda f + \lambda g$.
+        \item Let $f\in \F^S$ and let $\lambda, \mu\in \F$. Let $x\in S$. Then,
+        \[ ((\lambda + \mu)f)(x) = (\lambda +\mu)f(x) = \lambda f(x) + \mu f(x)\]
+        So $(\lambda + \mu)f = \lambda f + \mu f$.
+    \end{enumerate}
+\end{proof}
+\begin{theorem}
+    The additive identity of a vector space is unique.
+\end{theorem}
+\begin{proof}
+    Let $V$ be a vector space and assume $0$ and $0'$ are additive identities of $V$. Then,
+    \[ 0 = 0 + 0' = 0' + 0 = 0'\]
+    The first and third equalities hold from the definition of the additive identity and the second holds from the commutativity of addition in $V$. So $0 = 0'$, as desired.
+\end{proof}
+\begin{theorem} \label{unique additive inverse}
+    Every element of a vector space has a unique additive inverse.
+\end{theorem}
+\begin{proof}
+    Let $V$ be a vector space. Let $x\in V$. By definition of a vector space, $x$ has at least one additive inverse. Suppose that $w$ and $w'$ are additive inverses of $x$. Then,
+    \[ w = (x + w') + w = (x + w) + w' = w' \]
+    Where the first and third equalities hold from the definition of the additive inverse of $x$ and the second holds from the associativity and commutativity of addition in $V$.
+\end{proof}
+\begin{definition}[Subtraction]
+    Let $V$ be a vector space.
+    \begin{enumerate}
+        \item Let $v\in V$. We denote the additive inverse of $v$ with $-v$.
+        \item Let $v,w\in V$. We define $v - w = v + (-w)$. 
+    \end{enumerate}
+\end{definition}
+To avoid reiterating ``let $V$ be a vector space" over and over again, we will simply define $V$ as a general vector space over $\F$ for the entire rest of the notes, unless otherwise stated.
+\begin{theorem}
+    For all $v\in V$, $0v = 0$.
+\end{theorem}
+\begin{proof} \label{0v}
+    Let $v\in V$. Then, 
+    \[ 0v = (0+0)v = 0v + 0v \]
+    Adding the additive inverse of $0v$, $-(0v)$, to both sides,
+    \[ 0v + (-0v) = 0v + 0v + (-0v)\]
+    which gives $0v = 0$, as desired.
+\end{proof}
+\begin{theorem}
+    For all $a \in \F$, $a0 = 0$ (where $0\in V$)
+\end{theorem}
+\begin{proof}
+    Let $a\in \F$. Then, 
+    \[ a0 = a(0+0) = a0 + a0\]
+    Adding the additive inverse of $a0$, $-(a0)$, to both sides,
+    \[ a0 + (-a0) = a0 + a0 + (-a0)\]
+    or $a0 = 0$, as desired.
+\end{proof}
+\begin{theorem}
+    For all $v\in V$, $(-1)v = -v$.
+\end{theorem}
+\begin{proof}
+    Let $v\in V$. Then,
+    \[ v + (-1)v = 1v + (-1)v = (1 + (-1))v = 0v = 0\]
+    Where the last equality holds by (\ref{0v}). Since the additive inverse is unique by (\ref{unique additive inverse}), $(-1)v = -v$.
+\end{proof}
+\section{Subspaces}
+We now consider the notion of subspaces.
+\begin{definition}[Subspace]
+    A set $U\subseteq V$ is called a \textbf{subspace} of $V$ if $U$ is also a vector space with the same additive identity, addition, and scalar multiplication as $V$.
+\end{definition}
+\begin{theorem}
+    A set $U\subseteq V$ is a subspace of $V$ if and only if all of the following hold:
+    \begin{enumerate}
+        \item \textbf{Additive Identity:} $0\in U$
+        \item \textbf{Closure Under Addition:} For every $u,v\in U$, $u+v\in U$.
+        \item \textbf{Closure Under Scalar Multiplication:} For every $u\in U$, $\lambda \in \F$, $\lambda u \in U$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Let $U$ be a subset of $V$.
+    
+    $(\implies)$ Assume $U$ is a subspace of $V$. Then, the three properties hold directly from the definition of a vector space.
+
+    $(\impliedby)$ Assume the three properties hold. Then, we must show that $U$ satisfies each of the properties of a vector space.
+    \begin{enumerate}
+        \item Let $u,v\in U$. Since $U$ is closed under addition, $u+v\in U$ and $v+u\in U$. Since $U$ has the same scalar multiplication as $V$, and $V$ is a vector space, we must have $u+v=v+u$.
+        \item Let $u,v,w\in U$. The exact same reasoning as (1) tells us that $(u+v)+w = u + (v+w)$.
+        \item This is given.
+        \item Let $v\in U$. By closure under scalar multiplication $-v = (-1)v\in U$.
+        \item Let $v\in U$. By closure under scalar multiplication, $1v \in U$. Since $U$ has the same scalar multiplication as $U$, $1v = v$.
+        \item Let $u,v\in U$ and $a,b\in \F$. By closure under scalar multiplication and addition, $a(u+v) \in U$, $au+av\in U$, $(a+b)v \in U$, and $av+bv \in U$. Since $U$ has the same scalar multiplication as $U$, we have $a(u+v) = au+av$ and $(a+b)v = av+bv$.
+    \end{enumerate}
+\end{proof}
+\subsection*{Sums of Subspaces}
+When we are dealing with vector spaces, we are typically only interested in subspaces, as opposed to arbitrary subsets. The notion of sums of subspaces will prove useful.
+\begin{definition}[Sum of Subspaces]
+    Suppose $V_1, \dots, V_m$ are subspaces of $V$. The sum $V_1 + \cdots + V_m$ is the set of all possible sums of elements of $V_1, \dots, V_m$. More precisely,
+    \[ V_1 + \cdots + V_m = \{ v_1 + \cdots + v_m : v_1\in V_1, \dots, v_m \in V_m \} \]
+\end{definition}
+\newpage
+\begin{example}
+    Given that
+    \[ U = \{(x,0,0)\in \F^3 : x\in \F\} \quad\text{and}\quad W = \{(0,y,0)\in \F^3 : y\in \F \}\]
+    are subspaces of $\F^3$, the sum of $U$ and $W$ is given by
+    \[ U+W = \{(x,y,0)\in \F^3: x,y,\in \F\} \]
+\end{example}
+\begin{example}
+    Suppose 
+    \[ U = \{(x,x,y,y)\in \F^4: x,y\in \F\}\quad\text{and}\quad W = \{(x,x,x,y) \in \F^4: x,y\in \F\} \]
+    are subspaces of $\F^4$. To describe the sum of $U$ and $W$, let $a,b,c,d\in \F$, and let $(a,a,b,b)\in U$ and $(c,c,c,d)\in W$. Then,
+    \[ (a,a,b,b) + (c,c,c,d) = (a+c, a+c, b+c, b+d) \]
+    Thus the first two elements of every element of $U+W$ has the first two coordinates equal to each other. Therefore,
+    \[ U+W \subseteq  \{(x,x,y,z)\in \F^4: x,y,z\in\F\} \]
+    To show inclusion in the other direction. To prove inclusion in the other direction, let $x,y,z\in \F^4$. Then $(x,x,y,z)\in \{(x,x,y,z\in \F^4 : x,y,z\in \F\}$. Then, We can write
+    \[ (x,x,y,z) = (x,x,y,y) + (0,0,0,z-y) \in U+W\]
+    So 
+    \[ U+W = \{(x,x,y,z)\in\F^4 : x,y,z\in \F\} \]
+\end{example}
+\begin{theorem}
+    Suppose $V_1, \dots, V_m$ are subspaces of $V$. Then $V_1 + \cdots + V_m$ is the smallest subspace of $V$ containing $V_1, \dots, V_m$.
+\end{theorem}
+\begin{proof}
+    To show $V_1 + \cdots + V_m$ is a subspace of $V$, we must show each of the three properties of a subspace.  
+    \begin{enumerate}
+        \item Note that $0 \in V_1, \dots, 0\in V_m$, so we have $0 = 0 + \cdots + 0 \in V_1 + \cdots + V_m$. 
+        \item Let $u,v\in V_1 + \cdots + V_m$. Pick $u_1vu_1 \in V_1, \dots, u_m, v_m\in V_m$. So that $u = u_1 + \cdots + u_m$ and $v = v_1 + \cdots + v,m$.  We then have, by closure in each $V_1, \dots, V_m$, that $u_1 + v_1 \in V_1, \dots, u_m+v_m \in V_m$. Thus, 
+        \begin{align*}
+            u +v &= (u_1 + \cdots +u_m) + (v_1 + \cdots + v_m) \\
+            &= (u_1 + v_1) + \cdots + (u_m + v_m) \in V_1 + \cdots + V_m
+        \end{align*}
+        \item Let $v\in V_1 + \cdots + V_m$ and let $\lambda\in \F$. Pick $v_1\in V_1, \dots, v_m\in V_m$ such that $v = v_1 + \cdots + v_m$. Then, by closure in each $V_1, \dots, V_m$, we have $\lambda v_1 \in V_1, \dots, \lambda v_m \in V_m$. Thus,
+        \begin{align*}
+            \lambda v &= \lambda(v_1 + \cdots + v_m) \\
+            &= \lambda v_1 + \cdots + \lambda v_m \in V_1 + \cdots + V_m
+        \end{align*}
+    \end{enumerate}
+    So $V_1 + \cdots + V_m$ is a subspace of $V$. 
+    
+    Next, to show that $V_1 + \cdots + V_m$ is the smallest subspace of $V$ containing $V_1, \cdots, V_m$, let $U$ be any subspace of $V$ containing $V_1, \cdots, V_m$. We must show that $V_1 + \cdots + V_m \subseteq U$. 
+
+    Let $v\in V_1 + \cdots + V_m$. Pick $v_1 \in V_1, \cdots, v_m\in V_m$ such that $v = v_1 + \cdots + v_m$. Then, since $U$ contains $V_1, \dots, V_m$, we have $v_1, \dots, v_m \in U$. But by closure under addition, we have $v_1 + \cdots + v_m \in U$. So $v\in U$. So $V_1 + \cdots + V_m \subseteq U$.
+\end{proof}
+\subsection*{Direct Sums}
+Suppose $V_1, \dots, V_m$ are subspaces of $V$. Every element $v\in V_1 + \cdots + V_m$ can be written in the form
+\[ v = v_1 + \cdots + v_m \]
+for some $v_1\in V_1, \dots, v_m\in V_m$. Of special interest are the special cases where each $v$ can only be written in one way. 
+\begin{definition}[Direct Sum]
+    Suppose $V_1, \dots, V_m$ are subspaces of $V$.
+    \begin{enumerate}
+        \item The sum $V_1 + \cdots + V_m$ is a \textbf{direct sum} if each element $v\in V_1 + \cdots + V_m$ can be only written in one way as a sum $v_1 + \cdots + v_m$ with each $v_k \in V_k$.
+        \item If $V_1 + \cdots + V_m$ is a direct sum, we write it as $V_1 \oplus \cdots \oplus V_m$.
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    Suppose $U$ and $W$ are the subspaces of $\F^3$ defined with 
+    \[ U = \{(x,y,0)\in \F^3: x,y\in \F\}\quad\text{and}\quad W = \{(0,0,z)\in \F^3: z\in \F\} \]
+    Show that $U\oplus W = \F^3$.
+\end{example}
+\begin{proof}
+    We first show that $U+W = \F^3$. We show forward and backward inclusion.
+
+    $(\subseteq)$. Let $v \in U+W$. Then, we can write $v = u+w$ for $u\in U$ and $w\in W$. We can write $u = (a,b,0)$ and $w = (0,0,c)$ for some $a,b,c\in \F$. Then, $v = (a,b,c) \in \F^3$.
+
+    $(\supseteq)$. Let $v\in \F^3$. Then, we can write $v = (a,b,c)$ for some $a,b,c\in \F$. Then, write $v = (a,b,0) + (0,0,c)$. We have $(a,b,0)\in U$ and $(0,0,c)\in W$. Thus, $v \in U +W$.
+
+    So $U+W = \F^3$.
+
+    Now, we show that the sum is direct. Let $v\in U+V$ and suppose we have $u, u' \in U$, $w, w'\in W$ with $v = u+w$ and $v = u' + w'$. We can write $u = (a,b,0)$, $u' = (a', b', 0)$, $v = (0,0,c)$, and $v'= (0,0,c')$ for some scalars $a,b,c,a',b',c'\in \F$. Then, since $u+w = u' + w'$, we have $(a,b,c) = (a',b',c')$. But this implies $a=a'$, $b=b'$, $c=c'$. So $u = u'$ and $v=v'$. So the representation of $v$ is unique. So the sum is direct.
+\end{proof}
+\begin{example}
+    Suppose $V_1,V_2,V_3$ are the subspaces of $V$ given by
+    \begin{align*}
+        V_1 &= \{(x,y,0)\in \F^3: x,y\in \F \} \\
+        V_2 &= \{(0,0,z)\in\F^3 : z\in \F \} \\
+        V_3 &= \{(0,y,y)\in \F^3 : y\in \F \}
+    \end{align*}
+    Show that $V_1+V_2+V_3 = \F^3$ but that $V_1+V_2+V_3$ is \textbf{not} direct.
+\end{example}
+\begin{proof}
+    To show that $V_1+V_2+V_3 = \F^3$, we must show forward and backward inclusion.
+
+    $(\subseteq).$ Let $v\in V_1 + V_2 + V_3$. Pick $v_1 \in V_1, v_2\in V_2, v_3\in V_3$ so that $v = v_1 + v_2 +v_3$. Pick scalars $a,b,c,d\in \F$ so that $v_1 = (a,b,0)$, $v_2 = (0,0,c)$, $v_3 = (0,d,d)$. Then, $v = v_1+v_2+v_3 = (a,b,0) + (0,0,c) + (0,d,d) = (a,b+d, c+d)\in\F^3$.
+
+    $(\supseteq)$. Let $v\in\F^3$ and pick scalars $a,b,c\in \F$ so that $v = (a,b,c)$. Then, write $v = (a,a,0) + (0,0, c - b+a) + (0,b-a, b-a)$. We have $(a,a,0)\in V_1$, $(0,0,c-b+a)\in V_2$, and $(0,b-a, b-a)\in V_3$. So $v \in V_1+V_2+V_3$.
+
+    To show that $V_1+V_2+V_3$ is not direct, note that $0 = (0,0,0) + (0,0,0) + (0,0,0)$ but we also have $0 = (0,1,0) + (0,0,1) + (0,-1,-1)$. These are two unique ways to write $0$ as a sum of elements of $V_1, V_2, V_3$.
+\end{proof}
+\begin{theorem} \label{direct sum all 0}
+    Suppose $V_1, \dots, V_m$ are subspaces of $V$. Then, $V_1 + \cdots + V_m$ is a direct sum if and only if the only way to write $0$ as a sum $v_1 + \cdots + v_m$ where each $v_k \in V_k$, is by taking each $v_k = 0$.
+\end{theorem}
+\begin{proof}
+    $(\implies)$ Assume $V_1 + \cdots + V_m$ is a direct sum. Then, by definition, we can only write $0$ as $v_1 + \cdots + v_m$ where each $v_k \in V_k$ in one way. But since $0\in V_k$, we can always write $0 = 0 + \cdots + 0$. So that is the one unique way.
+
+    $(\impliedby)$. Assume the only way to write $0$ as a sum $v_1 + \cdots + v_m$ where each $v_k\in V_k$ is with each $v_k = 0$. Then, let $v\in V_1 + \cdots + V_m$ and suppose there exist $u_1,v_1\in V_1, \cdots, u_m, v_m\in V_m$ such that $v = u_1 + \cdots + u_m$ and $v = v_1 + \cdots + v_m$. Subtracting these equations yields
+    \begin{align*}
+         0 &= (u_1 + \cdots + u_m) - (v_1 + \cdots + v_m) \\
+         &= (u_1 - v_1) + \cdots + (u_m - v_m)
+    \end{align*}
+    Each $v_k - u_k \in V_k$, by closure. But by our assumption, we must then have that each $u_k - v_k = 0$. So $u_k = v_k$, as desired.
+\end{proof} 
+\begin{theorem}
+    Suppose $U$ and $W$ are subspaces of $V$. Then, $U+W$ is a direct sum if and only if $U\cap W = \{0\}$.
+\end{theorem}
+\begin{proof}
+    $(\implies)$ Assume $U+W$ is a direct sum. Then, let $v \in U\cap W$. Then, $v \in U$ and $v\in W$. Then, $v +v \in U+W$. But by definition of a subspace, we also have $2v \in U$ and $0 \in W$. so $2v + 0 \in U+W$. But since $U+W$ is a direct sum, we must have $2v = v$ and $0 = v$. So, the only element of $U\cap W$ is $0$. So $U\cap W = \{0\}$.
+
+    $(\impliedby)$ Assume $U\cap W = \{0\}$. Then, pick $u\in U$, $w\in W$ with $u+w = 0$. Therefore $w = -v$. But this implies $-w = v \in W$. So $v \in U\cap V$. But this means that we must have $v = 0$. So $w = -0 = 0$. Thus the only way to make $u+w=0$ is by setting $u=w=0$. So by (\ref{direct sum all 0}), $U+W$ is a direct sum.
+\end{proof}
+Note that the above result is only applicable to the sums of \textbf{two} subspaces. Indeed, in the earlier nonexample of a direct sum, we do have $V_1 \cap V_2 = V_2 \cap V_3 = V_1 \cap V_3 = \{0\}$.
