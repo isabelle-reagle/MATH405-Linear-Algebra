@@ -1,0 +1,173 @@
+\chapter{Polynomials}
+\section{Zeros of Polynomials}
+Recall that a function $p: \F \to \F$ is called a polynomial of degree $m$ if there exist $a_0, \dots, a_m \in \F$ with $a_m \ne 0$ such that
+\[ p(z) = a_0 + a_1z + \cdots + a_mz^m \]
+for all $z\in \F$. The solutions to the equation $p(z) = 0$ play a crucial role in our study of polynomials.
+\begin{definition}[Zero of a Polynomial]
+    A number $\lambda \in \F$ is called a \textbf{zero} (or \textbf{root}) of a polynomial $p\in \P(\F)$ if
+    \[ p(\lambda) = 0\]
+\end{definition}
+\begin{theorem} \label{zerofactor1}
+    Suppose $m\in\N$ and $p\in \P(\F)$ is a polynomial of degree $m$. Suppose $\lambda\in\F$. Then $p(\lambda) = 0$ if and only if there exists a polynomial $q\in\P(\F)$ of degree $m-1$ such that
+    \[ p(z) = (z - \lambda)q(z)\]
+    for every $z\in \F$.
+\end{theorem}
+\begin{proof}
+    Let $p\in\P(\F)$ have degree $m\in\N$. First suppose $p(\lambda) = 0$. Pick $a_0, \dots, a_m\in\F$ with
+    \[ p(z) = a_0 + a_1z + \cdots + a_mz^m \]
+    for every $z\in\F$. Then, 
+    \[ p(z) = p(z) - p(\lambda) = a_1(z-\lambda) + \cdots + a_m(z^m-\lambda^m) \]
+    Recall the factorization
+    \[ z^k - \lambda^k = (z-\lambda) \sum_{j=1}^k \lambda^{j-1}z^{k-j} \]
+    Thus, 
+    \begin{align*}
+        p(z) = (z-\lambda) \pqty{a_1 + a_2\sum_{j=1}^2 \lambda^{j-1}z^{2-j} + \cdots + a_m\sum_{j=1}^m \lambda^{j-1}z^{m-j}}
+    \end{align*}
+    The right factor in the parenthesis here is a polynomial of degree $m-1$, as desired.
+
+    Conversely, suppose $p(z) = (z-\lambda)q(z)$ for some $m-1$ dimensional $q\in\P(\F)$. Then, $p(\lambda) = (\lambda - \lambda)q(\lambda) = 0$.
+\end{proof}
+\begin{theorem}
+    Suppose $m\in\N$ and $p\in\P(\F)$ is a polynomial of degree $m$. Then $p$ has at most $m$ zeros in $\F$.
+\end{theorem}
+\begin{proof}
+    We will induct on $m$. For the base case $m=1$, we can pick $a_0, a_1\in \F$ with $p(z) = a_0 + a_1z$ for every $z\in \F$. Thus $p(z) = 0$ only when $z = -a_0/a_1$. So there is only one solution.
+
+    Now suppose we have shown that $m$-dimensional polynomials at most $m$ zeros for some $m\in\N$. Let $p\in\P(\F)$ be an $m+1$-dimensional polynomial. If $p$ has no zeros, we're done since $0 < m+1$. Otherwise, let $\lambda \in\F$ be a zero of $p$. Then, pick an $m$-dimensional polynomial $q\in\P(\F)$ with
+    \[ p(z) = (z - \lambda)q(z) \]
+    for every $z\in\F$. Then, $p(z) = 0$ only if $z-\lambda = 0$ or $q(z) = 0$. So there are at most $m+1$ total zeros; one from $z-\lambda$ and $m$ from $q$ (by inductive hypothesis).
+\end{proof}
+This result implies that the coefficients of a polynomial are uniquely determined. If a polynomial had two different sets of coefficients, we could subtract them to find a finite-degree polynomial with infinitely many zeros, which is impossible.
+
+Recall that the degree of the zero polynomial is defined to be $-\infty$. $-\infty$ is a construction satisfying $-\infty < m$ and $-\infty + m = -\infty$ for every $m\in\Z$.
+\subsection*{Division Algorithm for Polynomials}
+If $p,s\in\N$ with $s\ne 0$, then we can pick $q,r\in\N$ with $p = sq + r$. This can be thought of as writing $p$ as $p/s$, rounded down, plus a remainder $r$. We can come up with an analogous result for polynomials. Thus the next result is commonly called the division algorithm for polynomials. This isn't really an algorithm, so it is somewhat of a misnomer.
+\begin{theorem}[Division Algorithm for Polynomials]
+    Suppose $p,s\in \P(\F)$ with $s\ne 0$. Then there exist unique polynomials $q,r\in\P(\F)$ with
+    \[ p = sq + r\]
+    and $\deg r < \deg s$.
+\end{theorem}
+\begin{proof}
+    Let $p,s\in\P(\F)$ with $s\ne 0$. Suppose $n = \deg p$ and $m = \deg s$. We must have either $n < m$ or $n \ge m$. We apply cases.
+    \begin{enumerate}
+        \item In the first case $n < m$, pick $q = 0$ and $r = p$. Since $\deg r = \deg p = n < m = \deg s$ and $p = 0s + p$, these satisfy the hypothesis and we're done.
+        \item In the second case $n \ge m$, consider the list
+        \[ 1, z, \dots, z^{m-1}, s, sz, \dots, sz^{n-m}\]
+        Each of these polynomials have a different degree, so this is a linearly independent list (note that $s\ne 0$ guarantees this). Also note that the list has $m-1 + n-m = n+1$ elements, all of which are contained in $\P_n(\F)$. But $\dim \P_n(\F) = n+1$, so this list is a basis of $\P_n(\F)$.
+
+        Thus we can select unique $a_0, \dots, a_{m-1}, b_0, \dots, b_{n-m}\in \F$ satisfying
+        \[ p = a_0 + a_1z + \cdots + a_{m-1}z^{m-1} + b_0s + b_1sz + \cdots + b_{n-m}sz^{n-m} \]
+        Defining $r = a_0 + a_1z + \cdots + a_{m-1}z^{m-1}$ and $q = b_0 + b_1z + \cdots + b_{n-m}z^{n-m}$, we find that $\deg r = m-1 < m = \deg s$ and
+        \[ p = sq + r\]
+        as desired. The uniqueness of this representation is guaranteed by the uniqueness of the coefficients $a_0 ,\dots, a_{m-1}, b_0, \dots, b_{n-m}$.
+    \end{enumerate}
+\end{proof}
+\subsection*{Factorization of Complex Polynomials}
+Up until now, we have been handling polynomials over both the complex and real numbers simultaneously, using $\F$ to denote either $\C$ or $\R$. Now, we will explore some of the differences between the complex and real cases, starting with complex.
+
+In the proof of the next theorem, we rely on the fact that
+\[ (\cos\theta + i\sin\theta)^k = \cos k\theta + i\sin k\theta \]
+which can be proven by writing $(\cos\theta + i\sin\theta)^k = (e^{i\theta})^k = e^{ik\theta} = \cos k\theta + i\sin k\theta$.
+
+We also rely on some results from complex analysis that we will cite without proof, but they are pretty simple and make intuitive sense.
+\begin{theorem}[Fundamental Theorem of Algebra, First Version]
+    Every nonconstant polynomial with complex coefficients has a zero in $\C$.
+\end{theorem}
+\begin{proof}
+    Suppose $w\in\C$ and $k\in\N$. We can represent $w$ as 
+    \[ w = re^{i\theta} \]
+    for some $r \ge 0$ and $\theta\in\R$. We can equivalently write $w = (r^{1/k}e^{i\theta/k})^k$. Or, in other words,
+    \[ w = \pqty{r^{1/k}\pqty{\cos\frac{\theta}{k}+i\sin\frac{\theta}{k}}}^k\]
+    Thus every complex number has a $k$th root, a fact we will soon employ.
+
+    Suppose $p$ is a nonconstant polynomial with complex coefficients and highest-order nonzero term $c_mz^m$. Then, $|p(z)|\to\infty$ as $|z|\to\infty$. Thus the continuous function $z \mapsto |p(z)|$ has a global minimum value at some point $\zeta\in\C$. I claim $p(\zeta) = 0$. To show this, we aim for a contradiction. 
+    
+    Assume $p(\zeta) \ne 0$. Define a new polynomial $q\in\P(\C)$ with
+    \[ q(z) = \frac{p(z+\zeta)}{p(\zeta)} \]
+    The function $z\mapsto |q(z)|$ has a global minimum at $z=0$. Write
+    \[ q(z) = 1 + a_kz^k + \cdots + a_mz^m \]
+    where $k\in\N$ is the smallest number such that the coefficient $a_k$ is nonzero. 
+
+    Now pick $\beta\in\C$ such that $\beta^k = -1/a_k$ (the existence of such $\beta$ is guaranteed by the existence of $k$th roots, as we showed previously). Now, there exists some $c > 1$ such that for any $t\in(0,1)$,
+    \begin{align*}
+        |q(t\beta)| &\le |1 + a_kt^k\beta^k| + t^{k+1}c \\
+        &= 1 - t^k + t^{k+1}c = 1 - t^k(1 - tc)
+    \end{align*}
+    But $t$ is arbitrary, so we can take $t = 1/(2c)$ to find $|q(t\beta)| < 1 $, contradicting the fact that $|q(z)|$ has a global minimum at $z=0$. Thus $p(\zeta) = 0$. 
+\end{proof}
+\begin{theorem}[Fundamental Theorem of Algebra, Second Version]
+    If $p\in\P(\C)$ is nonconstant, then $p$ has a unique factorization of the form
+    \[ p(z) = c(z-\lambda_1)\cdots(z-\lambda_m)\]
+    where $c,\lambda_1,\dots,\lambda_m\in\C$.
+\end{theorem}
+\begin{proof}
+    Let $p\in\P(\C)$ and let $m=\deg p$. We induct on $m$. 
+
+    For the base case $m=1$, pick $a_0,a_1\in \C$ with $p(z) = a_0 + a_1z$. Then, $p(z) = a_1(z - (-a_0/a_1))$, as desired. This representation is unique by the uniqueness of $a_0$ and $a_1$.
+
+    Now assume the theorem holds for polynomials of degree $m-1$ where $m>1$. We must prove it for $m$. By the first version of the fundamental theorem of algebra, $p$ has a zero $\lambda\in\C$. By (4.\ref{zerofactor1}), we can pick $q\in\P(\C)$ with
+    \[ p(z) = (z-\lambda)q(z)\]
+    with $\deg q = m-1$. But by inductive hypothesis, we can factorize $q$. This completes our inductive step for existence.
+
+    Now we turn our attention to uniqueness. Suppose $p$ has a factorization
+    \[ p(z) = c(z-\lambda_1)\cdots(z-\lambda_m) \]
+    $c$ is uniquely determined as the coefficient of the highest power term. Now, we show there is only one way to pick the $\lambda$s. Suppose
+    \[ (z-\lambda_1)\cdots(z-\lambda_m) = (z-\tau_1)\cdots(z-\tau_m) \]
+    for all $z\in\C$. In the case $z = \lambda_1$, then both are zero and so one of the $\tau$s must equal $\lambda_1$. By a simple relabel of the $\tau$s, we then have $\lambda_1 = \tau_1$. Now, assume $z \ne \lambda_1$. We can divide both sides by $z-\lambda_1 = z-\tau_1$ to find
+    \[ (z-\lambda_2)\cdots(z-\lambda_m) = (z-\tau_2)\cdots(z-\tau_m) \]
+    But these are $m-1$ degree polynomials, and the uniqueness of this representation holds by the inductive hypothesis. So the choice of $\lambda$s is unique. 
+\end{proof}
+\subsection*{Factorization of Real Polynomials}
+A polynomial with real coefficients may have no real zeros. For instance, $1+x^2$ has no real zeros.
+\begin{theorem}[Polynomials with Real Coefficients have Nonreal Zeros in Pairs]
+    Suppose $p\in\P(\C)$ is a polynomial with real coefficients. If $\lambda\in\C$ is a zero of $p$, then so is $\overline\lambda$.
+\end{theorem}
+\begin{proof}
+    Let $p(z) = a_0 + a_1z + \cdots + a_mz^m$ where $a_0, \dots, a_m \in \R$. Suppose $\lambda\in\C$ is a zero of $p$. Then
+    \[ a_0+a_1\lambda + \cdots + a_m\lambda^m = 0 \]
+    Take the complex conjugate of both sides to find
+    \[ a_0 + a_1\overline \lambda + \cdots + a_m\overline \lambda^m = 0\]
+    due to the fact that the conjugate distributes over addition and multiplication and $a_k = \overline a_k$.
+\end{proof}
+\begin{theorem}[Factorization of a Quadratic]
+    Suppose $b,c\in\R$. Then there is a polynomial factorization of the form
+    \[ x^2+bx+c = (x-\lambda_1)(x-\lambda_2) \]
+    with $\lambda_1,\lambda_2\in\R$ if and only if $b^2 \ge 4c$.
+\end{theorem}
+\begin{proof}
+    $(\implies)$ First suppose there is a factorization of the form $x^2+bx+c = (x-\lambda_1)(x-\lambda_2)$. Then,
+    \begin{align*}
+        x^2+bx + c &= (x-\lambda_1)(x-\lambda_2) \\
+        &= x^2 - (\lambda_1+\lambda_2)x + \lambda_1\lambda_2
+    \end{align*}
+    By equating terms with equal powers, we have $b = -(\lambda_1+\lambda_2)$ and $c= \lambda_1\lambda_2$. Then,
+    \begin{align*}
+        b^2-4c &= (\lambda_1+\lambda_2)^2 - 4\lambda_1\lambda_2 \\
+        &= \lambda_1^2 + \lambda_2^2 - 2\lambda_1\lambda_2 \\
+        &= (\lambda_1 - \lambda_2)^2 \ge 0
+    \end{align*}
+    So $b^2 \ge 4c$, as desired.
+
+    $(\impliedby)$ Conversely, assume $b^2 \ge 4c$. Then pick $\lambda_1 = -b/2 + (1/2)\sqrt{b^2-4c}$ and $\lambda_2 = -b/2 - (1/2)\sqrt{b^2-4c}$. It is easy to see with routine multiplication that $(x-\lambda_1)(x-\lambda_2) = x^2+bx+c$.
+\end{proof}
+The next theorem gives the general factorization of a polynomial over $\R$. The general idea is to use the fact that nonreal zeros come in conjugate pairs, and multiplying $(x-\lambda)(x-\overline \lambda)$ gives a real result. Thus we can factorize a polynomial as some number of linear terms (corresponding to the real zeros) and a number of quadratic terms (corresponding to the conjugate pairs of complex zeros).
+\begin{theorem}[Factorization of a Real Polynomial]
+    Suppose $p\in\P(\R)$ is a nonconstant polynomial. Then $p$ has a unique factorization of the form
+    \[ p(x) = c(x-\lambda_1)\cdots(x-\lambda_m)(x^2+b_1x+c_1)\cdots(x^2+b_Mx+c_M)\]
+    where $c,\lambda_1,\dots,\lambda_m,b_1,c_1,\dots,b_M,c_M\in\R$ with each $b_k^2 < 4c_k$.
+\end{theorem}
+\begin{proof}
+    We first show existence and then uniqueness.
+
+    Let $p\in\P(\R)$. We think of $p$ as a polynomial in $\C$, which we can factorize. But since $p$ has real coefficients, the $\lambda$s in its complex factorization come in conjugate pairs. That is, for every zero $\lambda\in\C$ of $p$ (with $\lambda\notin \R$), we can pick some $q(x)\in\P(\C)$ with
+    \[ p(x) = (x-\lambda)(x-\overline \lambda)q(x)\]
+    for all $x\in\R$. I claim $q$ has real coefficients. This can be shown by picking
+    \[ q(x) = \frac{p(x)}{(x-\lambda)(x-\overline\lambda)} \]
+    for all $x\in\R$. This is never a division by zero since $\lambda,\overline\lambda\notin\R$. Thus $q(x)\in\R$ for all $x\in\R$. Writing
+    \[ q(x) = a_0 + a_1x + \cdots + a_{n-2}x^{n-2}\]
+    where $n = \deg p$ and $a_0, \cdots, a_{n-2}\in\C$, we thus have
+    \[ 0 = \Im q(x) = \Im a_0 + x\Im a_1 + \cdots + x^{n-2}\Im a_{n-2}\]
+    since $\Im$ distributes over addition and each $x_k\in\R$. Thus $\Im a_k = 0$ for each $k$. Hence the coefficients of $q$ are all real. Hence the factorization exists.
+
+    For uniqueness, we can think of each of the $x^2 + b_kx + c_k$ terms as a $(x-\lambda)(x-\overline \lambda)$ term, which we know to be unique by the uniqueness of factorization in $\C$. Thus the real factorization is unique as well.
+\end{proof}

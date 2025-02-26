@@ -1,0 +1,168 @@
+\chapter{Eigenvalues and Eigenvectors}
+\section{Invariant Subspaces}
+\subsection*{Eigenvalues}
+We start with some key definitions.
+\begin{definition}[Operator]
+    A linear map from a vector space to itself is called an operator.
+\end{definition}
+Suppose $T\in\lmap(V)$. If $m \ge 2$ and $V = V_1 \oplus \cdots \oplus V_m$ where each $V_k$ is a nonzero subspace of $V$, then to understand the behavior of $T$ we only need to understand the behavior of each $T|_{V_k}$ (the restriction of $T$'s domain to $V_k$). Dealing with $T|_{V_k}$ is often easier than dealing with $T$ since $V_k$ is a smaller space than $V$.
+
+However, there is a small hiccup in this plan; sometimes, $T|_{V_k}$ does not map $V_k$ into itself. That is, $T|_{V_k}$ is not an operator on $V_k$. Hence we give a name to subspaces of $V$ that get mapped into themselves by $T$.
+\begin{definition}[Invariant Subspace]
+    Suppose $T\in\lmap(V)$. A subspace $U$ of $V$ is called \textbf{invariant} under $T$ if $Tu\in U$ for all $u\in U$.
+\end{definition}
+\begin{example}[Invariance Under Differentiation]
+    Suppose $T\in\lmap(\P(\R))$ is defined with $Tp = p'$. Then $\P_4(\R)$ is invariant under $T$ since $T|_{\P_4(\R)}$ maps elements of $\P_4(\R)$ to elements of $\P_3(\R)$ (which are also elements of $\P_4(\R)$).
+\end{example}
+\begin{example}[Four Invariant Subspaces]
+    Suppose $T\in\lmap(V)$. Then the following subspaces are always invariant under $T$.
+    \begin{enumerate}
+        \item $\{0\}$. By definition of a linear map, $T0=0$. So $T|_{\{0\}} \in \lmap(\{0\})$.
+        \item $V$. $T|_V$ is just $T$, which we already know is an operator on $V$.
+        \item $\nul T$. Suppose $v\in \nul T$. Then, $Tv = 0 \in \nul T$. So $T|_{\nul T} \in \lmap(\nul T)$.
+        \item $\range T$. Suppose $v\in \range T$. Then, $Tv \in \range T$ (by definition). So $T|_{\range T} \in \lmap(\range T)$.
+    \end{enumerate}
+\end{example}    
+Must an operator $T\in\lmap(V)$ have any invariant subspaces other than $\{0\}$ and $V$? We will later explore an affirmative answer to this question for some special cases. It may seem obvious to say the invariance of $\nul T$ and $\range T$ gives us an answer, but it is often the case that these spaces equal $\{0\}$ or $V$.
+
+Let's give a brief investigation of the simplest possible nontrivial invariant subspaces--invariant subspaces of dimension one. Take any $v\in V$ with $v \ne 0$ and let $U = \spn(v)$. Then $U$ is a one-dimensional subspace of $V$ and if $U$ is invariant under some $T\in\lmap(V)$, then $Tv \in U$ and hence there is some $\lambda\in\F$ satisfying
+\[ Tv = \lambda v\]
+Conversely, if $Tv = \lambda v$ for some $\lambda\in\F$, then $\spn(v)$ is a one-dimensional subspaces of $V$ invariant under $T$. 
+
+Guys its an eigenvalue equation!
+\begin{definition}[Eigenvalue]
+    Suppose $T\in\lmap(V)$. A number $\lambda\in\F$ is called an \textbf{eigenvalue} of $T$ if there exists some $v\in V$ with $v\ne 0$ and $Tv = \lambda v$.
+\end{definition}
+We require $v\ne 0$ cause $T0 = 0v$ is always true, so allowing $v=0$ would make $0$ always be an eigenvalue of $T$. Thus as we explored above, $V$ has a one-dimensional subspace invariant under $T$ if and only if $T$ has an eigenvalue
+\begin{example}[Eigenvalue]
+    Defined $T\in\lmap(\F^3)$ with
+    \[ T(x,y,z) = (7x + 3z, 3x+6y + 9z, -6y ) \]
+     Then $T(3, 1, -1) = (18, 6, -6) = 6(3, 1, -1)$. So $6$ is an eigenvalue of $T$.
+\end{example}
+Note that the next results only apply on finite-dimensional vector spaces.
+\begin{theorem}[Equivalent Conditions to be an Eigenvalue]
+    Suppose $V$ is finite-dimensional, $T\in\lmap(V)$, and $\lambda\in\F$. Then the following are equivalent.
+    \begin{enumerate}
+        \item $\lambda$ is an eigenvalue.
+        \item $T - \lambda I$ is not injective.
+        \item $T - \lambda I$ is not surjective.
+        \item $T - \lambda I$ is not invertible.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    2, 3, and 4 are clearly equivalent since $V$ is finite-dimensional. To show equivalence of 1, we consider both directions.
+    
+    $(\implies)$ Suppose $\lambda$ is an eigenvalue of $T$. Pick a nonzero $v\in V$ satisfying $Tv = \lambda v$. Then, $Tv - \lambda v = 0$. But $Tv - \lambda v = (T - \lambda I)v$. Thus $\nul(T-\lambda I) \ne \{0\}$, so $T - \lambda I$ is not injective.
+
+    $(\impliedby)$ Suppose $T - \lambda I$ is not injective. So pick nonzero $v\in \nul(T-\lambda I)$. Then, $(T-\lambda I)v = 0$, which is equivalent to $Tv = \lambda v$. So $\lambda$ is an eigenvalue of $T$.
+\end{proof}
+\begin{definition}[Eigenvector]
+    Suppose $T\in\lmap(V)$ and $\lambda\in\F$ is an eigenvalue of $T$. A vector $v\in V$ is called an \textbf{eigenvector} of $T$ corresponding to $\lambda$ if $v\ne 0$ and $Tv=\lambda v$.
+\end{definition}
+\begin{example}[Eigenvalues and Eigenvectors]
+    Suppose $T\in\lmap(\F^2)$ is defined with $T(w,z) = (-z, w)$.
+    \begin{enumerate}
+        \item First consider the case $\F = \R$. Then $T$ is a counterclockwise rotation by $90^\circ$ about the origin in $\R^2$. When searching for an eigenvector, we are looking for something that is mapped to a scalar multiple of itself by $T$. But this is not possible, since $T$ is a rotation. So $T$ has no eigenvectors.
+        \item Now suppose $\F=\C$. To find eigenvalues of $T$, we are searching for scalars $\lambda$ satisfying $(-z, w) = (\lambda w, \lambda z)$ for some $w,z \in \C$ where at least one is nonzero. This is equivalent to the simultaneous system of equations
+        \[ -z = \lambda w \quad\text{and} \quad w = \lambda z \]
+        by plugging $z = -\lambda w$ into the second equation, we have $w = -\lambda^2 w$, so either $w = 0$ or $\lambda = \pm i$.
+        \begin{enumerate}
+            \item Considering $w = 0$, we see this is not valid since $w = \lambda z$ would require $z=0$, an invalid solution since we want $(w,z)\ne (0,0)$.
+            \item Now considering $\lambda = i$, our system turns into $(-z, w) = (iw, iz)$. From this, we can see that eigenvectors corresponding to $\lambda = i$ are of the form $(w, -iw)$ for any nonzero $w\in \C$.
+            \item With $\lambda = -i$, the system becomes $(-z, w) = (-iw, -iz)$. We see that eigenvectors corresponding to $\lambda = -i$ are of the form $(w, iw)$ for any nonzero $w\in\C$.
+        \end{enumerate}
+    \end{enumerate}
+\end{example}
+\begin{theorem}[Linearly Independent Eigenvectors]
+    Suppose $T\in\lmap(V)$. Then every list of eigenvectors of $T$ corresponding to distinct eigenvalues of $T$ is linearly independent.
+\end{theorem}
+\begin{proof}
+    Let $T\in\lmap(V)$. For the sake of contradiction, suppose we have found a linearly dependent list of eigenvectors, $v_1, \dots, v_m \in V$ with eigenvalues $\lambda_1, \dots, \lambda_m \in \F$ with $Tv_k = \lambda_kv_k$ for each $k \in \{1, \dots, m\}$. Additionally suppose that this is list is minimal; that is, removing any $v_k$ makes it independent. 
+
+    Recall that $Tv_k = \lambda_kv_k$ is equivalent to $(T-\lambda_kI)v_k = 0$. Then,
+    
+    Pick $c_1, \dots, c_m\in \F$, not all zero, with
+    \[ c_1v_1 + \cdots + c_mv_m = 0\]
+    Apply $T - \lambda_mI$ to both sides to obtain
+    \begin{align*}
+        0 &= c_1(T-\lambda_m I)v_1 + \cdots + c_m(T-\lambda_m I)v_m \\
+        &= c_1(Tv_1 - \lambda_m v_1) + \cdots + c_m(Tv_m - \lambda_m v_m) \\
+        &= c_1(\lambda_1v_1 - \lambda_mv_1) + \cdots + c_m(\lambda_mv_m - \lambda_mv_m) \\
+        &= c_1(\lambda_1v_1 - \lambda_mv_1) + \cdots + c_{m-1}(\lambda_{m-1}v_{m-1} - \lambda_mv_{m-1}) \\
+        &= c_1(\lambda_1-\lambda_m)v_1 + \cdots + c_{m-1}(\lambda_{m-1} - \lambda_m)v_{m-1}
+    \end{align*}
+    Since each $\lambda_k$ is distinct from the other eigenvalues, and we assumed at least one $c_k$ is nonzero (since $v_m \ne 0$, the case where $c_m \ne 0$ and the rest are zero is impossible). Thus at least one $c_1, \dots, c_{m-1}$ is nonzero. So at least one of $c_1(\lambda_1-\lambda_m), \dots, c_{m-1}(\lambda_{m-1}-\lambda_m)$ is nonzero. Thus $v_1, \dots, v_{m-1}$ is dependent. But this contradicts our assumption that $m$ is minimal. So $v_1, \dots, v_m$ is independent.
+\end{proof}
+\begin{theorem}[Maximum Eigenvalues]
+    Suppose $V$ is finite-dimensional and $T\in\lmap(V)$. Then $T$ has at most $\dim V$ distinct eigenvalues.
+\end{theorem}
+\begin{proof}
+    Let $T\in\lmap(V)$. Suppose $\lambda_1, \dots, \lambda_m$ are distinct eigenvalues of $T$ and $v_1, \dots, v_m$ are their corresponding eigenvectors. Then $v_1, \dots, v_m$ is independent, and so $m \le \dim V$ (there are no independent lists with length greater than $\dim V$).
+\end{proof}
+\subsection*{Polynomials Applied to Operators}
+The main reason that a richer theory exists for operators than for more general linear maps is that operators can be raised to powers. In this subsection we define that notion and the concept of applying a polynomial to an operator. 
+\begin{definition}[Powers of Operators]
+    Suppose $T\in\lmap(V)$ and $m\in\N$. Then, 
+    \begin{enumerate}
+        \item $T^m \in \lmap(V)$ is defined by $T^m = \prod_{i=1}^m T$. 
+        \item $T^0$ is defined to be the identity operator $I$ on $V$.
+        \item If $T$ is invertible with inverse $S$, $T^{-m}$ is defined as $T^{-m} = S^m$.
+    \end{enumerate}
+\end{definition}
+\begin{theorem}[Algebraic Properties of Powers of Operators]
+    Suppose $T\in\lmap(V)$ and $m,n\in\N$. Then, $T^mT^n = T^{m+n}$ and $(T^m)^n = T^{mn}$.
+\end{theorem}
+\begin{proof}
+    Let $T\in\lmap(V)$ and $m,n\in\Z_{\ge 0}$. We have
+    \[ T^mT^n = \pqty{\prod_{i=1}^m T}\pqty{\prod_{i=1}^n T} = \prod_{i=1}^{m+n} T = T^{m+n} \]
+    and we also have
+    \[ (T^m)^n = \prod_{i=1}^n T^m = \prod_{i=1}^n \prod_{i=1}^n T = \prod_{i=1}^{mn} T = T^{mn} \]
+\end{proof}
+Note that if we apply the additional restriction that $T$ is invertible, we can make $m,n\in\Z$ instead of $\Z_{\ge 0}$.
+\begin{definition}[Polynomial Applied to Operator]
+    Suppose $T\in\lmap(V)$ and $p\in\P(\F)$ is defined by
+    \[ p(z) = a_0 + a_1z + \cdots + a_mz^m \]
+    for all $z\in\F$. Then $p(T)\in\lmap(V)$ is defined by
+    \[ p(T) = a_0I + a_1T + \cdots + a_mT^m \]
+\end{definition}
+Note that the constant term $a_0$ becomes $a_0I$ since we can write $a_0 = a_0z^0$, so substituting $T$ gives $a_0T^0$ or simply $a_0I$.
+\begin{example}
+    Suppose $D\in\lmap(\P(\R))$ is the differentiation operator defined $Dq=q'$ and $p\in\P(\R)$ is the polynomial defined as $p(x) = 7 - 3x + 5x^2$. Then, $p(D) = 7I - 3D + 5D^2$ and
+    \[ (p(D))q = 7q - 3q' + 5q'' \]
+    for all $q\in\P(\F)$.
+\end{example}
+\begin{definition}[Product of Polynomials]
+    Let $p,q\in\P(\F)$. Then, $pq\in\P(\F)$ is defined with
+    \[ (pz)(z) = p(z)q(z) \]
+\end{definition}
+\begin{theorem}[Multiplicative Properties]
+    Suppose $p,q\in\P(\F)$ and $T\in\lmap(V)$. Then,
+    \begin{enumerate}
+        \item $(pq)(T) = p(T)q(T)$.
+        \item $p(T)q(T) = q(T)p(T)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+Let $p,q\in\P(\F)$ and $T\in\lmap(V)$. Then, 
+    \begin{enumerate}
+        \item Pick $a_0, \dots, a_m, b_0, \dots, b_n \in \F$ with $p(z) = \sum_{j=0}^m a_jz^j$ and $q(z) = \sum_{k=0}^n b_kz^k$. Then,
+        \begin{align*}
+            (pq)(T) &= \sum_{j=0}^m \sum_{k=0}^n a_j b_k T^{j+k} \\
+            &= \pqty{\sum_{j=0}^m a_jT^j}\pqty{\sum_{k=0}^n b_kT^k} \\
+            &= p(T)q(T)
+        \end{align*}
+        \item Now apply part (a) twice to find $p(T)q(T) = (pq)(T) = (qp)(T) = q(T)p(T)$.
+    \end{enumerate}
+\end{proof}
+\begin{theorem}
+    Suppose $T\in\lmap(V)$ and $p\in\P(\F)$. Then $\nul p(T)$ and $\range p(T)$ are invariant under $T$.
+\end{theorem}
+\begin{proof}
+    Suppose $u\in \nul p(T)$. Then $p(T)u = 0$. We wish to show that $(p(T))(Tu) = 0$.
+    \[ (p(T))(Tu) = (p(T)T)u = (Tp(T))u = T(p(T)u) = T0 = 0\]
+    So $Tu \in \nul p(T)$. So $\nul p(T)$ is invariant under $T$.
+
+    Now suppose $u\in\range p(T)$. Thus there exists $v\in V$ with $p(T)v = u$. Thus
+    \[ Tu = T(p(T)v) = (Tp(T))v = (p(T)T)v = p(T)(Tv)\]
+    so $Tu\in \range p(T)$. So $\range p(T)$ is invariant under $T$.
+\end{proof}

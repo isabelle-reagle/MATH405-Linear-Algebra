@@ -77,6 +77,13 @@
 \newcommand{\lmap}{\mcl{L}}
 \newcommand{\nul}{\operatorname{null}}
 \newcommand{\range}{\operatorname{range}}
+\newcommand{\matr}{\mcl M}
+\newcommand{\amat}[3]{\pmat{#1_{1,1} & \cdots & #1_{1,#3} \\
+                 \vdots & \ddots & \vdots \\
+                 #1_{#2,1} & \cdots & #1_{#2,#2}}}
+\newcommand{\fmat}[1]{\pmat{#1 & \cdots & #1 \\ \vdots & \ddots & \vdots \\ #1 & \ddots & #1}}
+\newcommand{\crank}{\operatorname{column} \operatorname{rank}}
+\newcommand{\rrank}{\operatorname{row} \operatorname{rank}}
 \newcommand{\rhat}{\mbf{\hat{r}}}
 \newcommand{\dotunit}[1]{\bm{\dot{\hat{#1}}}}
 \newcommand{\ddotunit}[1]{\bm{\ddot{\hat{#1}}}}
@@ -87,6 +94,7 @@
 \newcommand\bmat[1]{\begin{bmatrix}#1\end{bmatrix}}
 \newcommand{\mcl}[1]{\mathcal{#1}}
 \renewcommand{\L}{\mcl{L}}
+\renewcommand{\P}{\mcl P}
 % endregion
 
 % region ENVIRONMENTS

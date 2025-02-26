@@ -4,12 +4,12 @@ Note that we typically write lists of vectors without surrounding parenthesis.
 \subsection*{Linear Combinations, Span}
 A sum of the scalar multiples of vectors is called a linear combination of the vectors. The formal definition follows.
 \begin{definition}[Linear Combination]
-    Let $v_1, \dots, v_m \in V$. A linear combination of $v_1, \dots, v_m$ is a vector of the form
+    Let $V$ be a vector space. Let $v_1, \dots, v_m \in V$. A linear combination of $v_1, \dots, v_m$ is a vector of the form
     \[ a_1v_1 + \cdots + a_mv_m\]
     for scalars $a_1, \dots, a_m \in \F$.
 \end{definition}
 \begin{definition}[Span]
-    Let $v_1, \dots, v_m\in V$. The span of $v_1, \dots, v_m$ is the set of all linear combinations of $v_1, \dots, v_m$, and it is denoted $\spn(v_1, \dots, v_m)$. Thus,
+    Let $V$ be a vector space. Let $v_1, \dots, v_m\in V$. The span of $v_1, \dots, v_m$ is the set of all linear combinations of $v_1, \dots, v_m$, and it is denoted $\spn(v_1, \dots, v_m)$. Thus,
     \[ \spn(v_1, \dots, v_m) = \{ a_1v_1 + \cdots + a_mv_m : a_1, \dots, a_m \in \F \} \]
     We define the span of the empty list $()$ to be $\{0\}$.
 \end{definition}
@@ -66,7 +66,7 @@ We have $\mcl P_m(\F) = \spn(1, z, \dots, z^m)$, so $\mcl P_m(\F)$ is a finite d
     $\mcl P(\F)$ is infinite dimensional.
 \end{theorem}
 \begin{proof}
-    Suppose, for the sake of contradiction, that $\mcl P(\F)$ is finite dimensional. Thus, pick some spanning list $p_1, \dots, p_m$ of $\mcl P(\F)$. Let $n_1, \dots, n_m$ denote the degrees of each polynomial in this spanning list, and write $n = \max\{n_1, \dots, n_m\}$. Thus every polynomial in $\spn(p_1, \dots, p_n)$ has degree at most $n$. So, we can pick a polynomial $p\notin \spn(p_1, \dots p_m)$ by choosing $p(x) = z^{n+1}(x)$, which has degree $n+1 > n$.
+    Suppose, for the sake of contradiction, that $\mcl P(\F)$ is finite dimensional. Thus, pick some spanning list $p_1, \dots, p_m$ of $\mcl P(\F)$. Let $n_1, \dots, n_m$ denote the degrees of each polynomial in this spanning list, and write $n = \max\{n_1, \dots, n_m\}$. Thus every polynomial in $\spn(p_1, \dots, p_n)$ has degree at most $n$. So, we can pick a polynomial $p\notin \spn(p_1, \dots p_m)$ by choosing $p(z) = z^{n+1}$, which has degree $n+1 > n$.
 \end{proof}
 \subsection*{Linear Independence}
 Suppose $v_1, \dots, v_m \in V$ and $v \in \spn(v_1, \dots, v_m)$. By the definition of span, we can pick $a_1, \dots, a_m \in \F$ such that
@@ -79,7 +79,7 @@ We have thus written $0$ as a linear combination of $v_1, \dots, v_m$. If the on
 
 In this case, we call $v_1, \dots, v_m$ linearly independent.
 \begin{definition}[Linearly Independent]
-    Let $v_1, \dots, v_n$ be a list of vectors in $V$. Then, $v_1, \dots, v_n$ is linearly independent if the only choice of $a_1, \dots, a_m\in \F$ that makes
+    Let $V$ be a vector space. Let $v_1, \dots, v_n$ be a list of vectors in $V$. Then, $v_1, \dots, v_n$ is linearly independent if the only choice of $a_1, \dots, a_m\in \F$ that makes
     \[ a_1v_1 + \cdots + a_mv_m = 0\]
     is $a_1 = \cdots = a_m = 0$.
 
@@ -89,7 +89,7 @@ In this case, we call $v_1, \dots, v_m$ linearly independent.
     A list of vectors in $V$ is called linearly dependent if it is not linearly independent.
 \end{definition}
 \begin{theorem}[Linear Dependence Lemma]
-    Suppose $v_1, \dots, v_m$ is a linearly dependent list in $V$. Then, there exists $k\in\{1, 2, \dots m\}$ such that
+    Let $V$ be a vector space. Suppose $v_1, \dots, v_m$ is a linearly dependent list in $V$. Then, there exists $k\in\{1, 2, \dots m\}$ such that
     \[ v_k \in \spn(v_1, \dots, v_{k-1})\]
     Furthermore, if $k$ satisfies the above condition and the $k^\text{th}$ term is removed from $v_1, \dots, v_m$, then the span of the remaining list equals $\spn(v_1, \dots, v_m)$.
 \end{theorem}
@@ -115,7 +115,7 @@ In this case, we call $v_1, \dots, v_m$ linearly independent.
     In a finite-dimensional vector space, the length of every linearly independent list of vectors is less than or equal to the list of every spanning list of vectors.
 \end{theorem}
 \begin{proof}
-    Suppose that $u_1, \dots u_m$ is linearly independent in $V$ and suppose that $w_1, \dots, w_n$ spans $V$. We prove that $m \le n$ with the below multi-step process:
+    Let $V$ be a finite-dimensional vector space. Suppose that $u_1, \dots u_m$ is linearly independent in $V$ and suppose that $w_1, \dots, w_n$ spans $V$. We prove that $m \le n$ with the below multi-step process:
 
     \textbf{Step 1:} Let $B = w_1, \dots, w_n$, which spans $V$. Adjoining $u_1$ to the beginning of the list gives the list $u_1, w_1, \dots, w_n$ which is linearly dependent (since $u_1\in\spn(w_1, \dots, w_n)$.
 
@@ -139,7 +139,7 @@ A few powerful ways to use this theorem follow.
     Every subspace of a finite-dimensional vector space is finite-dimensional.
 \end{theorem}
 \begin{proof}
-    Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. We need to prove that $U$ is finite-dimensional. We do this through the following multi-step process.
+    Suppose $V$ is a finite-dimensional vector space and $U$ is a subspace of $V$. We need to prove that $U$ is finite-dimensional. We do this through the following multi-step process.
 
     \textbf{Step 1:} If $U = \{0\}$, then $U$ is finite dimensional and we're done. If $U \ne \{0\}$, then choose a nonzero $u_1 \in U$.
 
@@ -153,7 +153,7 @@ We now bring together the ideas of linear independence and span.
     A \textbf{basis} of $V$ is a list of vectors in $V$ that is linearly independent and spans $V$.
 \end{definition}
 \begin{theorem}[Criterion for Basis]
-    A list $v_1,\dots v_n$ of vectors in $V$ is a basis for $V$ if and only if every $v\in V$ can be written uniquely in the form
+    Let $V$ be a vector space. A list $v_1,\dots v_n$ of vectors in $V$ is a basis for $V$ if and only if every $v\in V$ can be written uniquely in the form
     \[ v = a_1v_1 + \cdots + a_nv_n\]
     with scalars $a_1, \dots, a_n\in \F$.
 \end{theorem}
@@ -169,7 +169,7 @@ A spanning list may not be a basis because it is not linearly independent. Our n
     Every spanning list of a vector space can be reduced to a basis of the vector space.
 \end{theorem}
 \begin{proof}
-    Suppose $v_1, \dots, v_n$ spans $V$. We want to remove some of the vectors from the list so that $v_1, \dots, v_n$ is a basis for $V$. We do this through the following multistep process.
+    Let $V$ be a vector space. Suppose $v_1, \dots, v_n$ spans $V$. We want to remove some of the vectors from the list so that $v_1, \dots, v_n$ is a basis for $V$. We do this through the following multistep process.
 
     \textbf{Step 1:} If $v_1 = 0$, remove it from the list. Otherwise, continue to the next step.
 
@@ -188,12 +188,12 @@ A linearly independent list of vectors may not be a basis because it does not sp
     Every linearly independent list of vectors in a finite dimensional vector space can be extended to a basis of the vector space.
 \end{theorem}
 \begin{proof}
-    Let $V$ be finite dimensional. Suppose $u_1, \dots, u_m$ is linearly independent in $V$. Let $w_1, \dots, w_n$ be a spanning list of $V$. Thus the list
+    Let $V$ be a finite dimensional vector space. Suppose $u_1, \dots, u_m$ is linearly independent in $V$. Let $w_1, \dots, w_n$ be a spanning list of $V$. Thus the list
     \[ u_1, \dots, u_m, w_1, \dots, w_n\]
     spans $V$. This list of vectors can be reduced to a basis of $V$, and we can guarantee that reducing this list does not remove any of the $u$s because $u_1, \dots, u_m$ is linearly independent.
 \end{proof}
 \begin{theorem}[Every Subspace of $V$ is Part of a Direct Sum Equal to $V$]
-    Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then there is a subspace $W$ of $V$ such that $V = U\oplus W$.
+    Suppose $V$ is a finite-dimensional vector space and $U$ is a subspace of $V$. Then there is a subspace $W$ of $V$ such that $V = U\oplus W$.
 \end{theorem}
 \begin{proof}
     Since $V$ is finite dimensional, $U$ is finite dimensional. Let $u_1, \dots, u_m$ be a basis of $U$. Extend this to a basis $u_1, \dots, u_m, w_1, \dots, w_n$ of $V$ (since $u_1,\dots, u_m$ is a linearly independent list in $V$). Define $W = \spn(w_1, \dots, w_m)$. 
@@ -221,7 +221,7 @@ But in general, a vector space has many different bases! Does this cause a probl
     All bases of a vector space have the same length.
 \end{theorem}
 \begin{proof}
-    Suppose $V$ is finite dimensional. Let $B_1$ and $B_2$ be bases of $V$. Then $B_1$ is linearly independent in $V$ and $B_2$ spans $V$. Let $m$ denote the length of $B_1$ and $n$ denote the length of $B_2$. 
+    Suppose $V$ is a finite dimensional vector space. Let $B_1$ and $B_2$ be bases of $V$. Then $B_1$ is linearly independent in $V$ and $B_2$ spans $V$. Let $m$ denote the length of $B_1$ and $n$ denote the length of $B_2$. 
     
     Since the length of a linearly independent list is less than or equal to the length of a spanning list, $m\le n$.
 
@@ -237,25 +237,25 @@ Now, we are armed to define the dimension of a vector space.
     \end{enumerate}
 \end{definition}
 \begin{theorem}[Dimension of a Subspace]
-    If $V$ is finite-dimensional and $U$ is a subspace of $V$, then $\dim U \le \dim V$.
+    If $V$ is a finite-dimensional vector space and $U$ is a subspace of $V$, then $\dim U \le \dim V$.
 \end{theorem}
 \begin{proof}
-    Suppose $V$ is finite-dimensional. Let $v_1, \dots, v_m$ be a basis for $V$. So $\dim V = m$ This list spans $U$, so it can be reduced into a basis for $U$. Since reducing a list removes some (possibly none) of its elements, the length of this list is less than or equal to $m$. So $\dim U \le m$. So $\dim U \le \dim V$.
+    Suppose $V$ is a finite-dimensional vector space. Let $v_1, \dots, v_m$ be a basis for $V$. So $\dim V = m$ This list spans $U$, so it can be reduced into a basis for $U$. Since reducing a list removes some (possibly none) of its elements, the length of this list is less than or equal to $m$. So $\dim U \le m$. So $\dim U \le \dim V$.
 \end{proof}
 \begin{theorem}[Linearly Independent List of Right Length is a Basis]
-    If $V$ is finite-dimensional, then every linearly independent list of vectors with length $\dim V$ is a basis of $V$.
+    If $V$ is a finite-dimensional vector space, then every linearly independent list of vectors with length $\dim V$ is a basis of $V$.
 \end{theorem}
 \begin{proof}
     Suppose $V$ is a finite-dimensional vector space. Let $\dim V = n$, and let $v_1, \dots, v_n$ be a linearly independent list in $V$. Then, we can extend this to a list $v_1, \dots, v_n, w_1, \dots, w_m$ that is a basis for $V$. But since $\dim V = n$, all bases of $V$ have length $n$. This is only possible if no $w$s are added. So $v_1, \dots, v_n$ is a basis for $V$. 
 \end{proof}
 \begin{theorem}[Subspace of Full Dimension is the Space]
-    If $V$ is finite-dimensional and $U$ is a subspace of $V$, and $\dim U =\dim V$, then $U=V$.
+    If $V$ is a finite-dimensional vector space and $U$ is a subspace of $V$, and $\dim U =\dim V$, then $U=V$.
 \end{theorem}
 \begin{proof}
-    Suppose $V$ is finite dimensional and that $\dim V = n$. Let $U$ be a subspace of $V$ satisfying $\dim U = n$. Then, $u_1, \dots u_n$ is a basis for $U$. But since this is a linearly independent list in $V$ with the correct length, $u_1, \dots, u_n$ is also a basis for $V$. So $U=V$.
+    Suppose $V$ is a finite dimensional vector space and that $\dim V = n$. Let $U$ be a subspace of $V$ satisfying $\dim U = n$. Then, $u_1, \dots u_n$ is a basis for $U$. But since this is a linearly independent list in $V$ with the correct length, $u_1, \dots, u_n$ is also a basis for $V$. So $U=V$.
 \end{proof}
 \begin{theorem}[Spanning List of Right Length is a Basis]
-    If $V$ is finite-dimensional, then every spanning list of vectors with length $\dim V$ is a basis of $V$.
+    If $V$ is a finite-dimensional vector space, then every spanning list of vectors with length $\dim V$ is a basis of $V$.
 \end{theorem}   
 \begin{proof}
     Suppose $V$ is a finite-dimensional vector space, and let $\dim V = n$. Let $v_1, \dots, v_n$ be a spanning list of $V$. So we can remove some $v$s to create a new list, of length $m\le n$, that is a basis for $V$. But since the length of every basis is the same, and $\dim V=n$, we must have $m=n$. So no elements are removed. So $v_1, \dots, v_n$ is a basis for $V$.
